@@ -1,0 +1,260 @@
+/* Disaster Communication Bridge (DCB) - Professional Emergency Theme */
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap');
+
+:root {
+  /* Color Tokens - Light Emergency */
+  --bg-primary: #F8FAFC;
+  --bg-surface: #FFFFFF;
+  --bg-surface-elevated: #F1F5F9;
+  --bg-glass: rgba(255, 255, 255, 0.85);
+  --border-color: #E2E8F0;
+  
+  --text-main: #0F172A;
+  --text-muted: #475569;
+  --text-subtle: #64748B;
+  
+  /* Emergency Accent Palette */
+  --emergency-red: #DC2626;
+  --emergency-red-bg: #FEF2F2;
+  --emergency-red-border: #FCA5A5;
+  
+  --alert-amber: #D97706;
+  --alert-amber-bg: #FFFBEB;
+  --alert-amber-border: #FCD34D;
+  
+  --mesh-cyan: #0284C7;
+  --mesh-cyan-bg: #F0F9FF;
+  --mesh-cyan-border: #7DD3FC;
+  
+  --sync-green: #16A34A;
+  --sync-green-bg: #F0FDF4;
+  --sync-green-border: #86EFAC;
+
+  --accent-blue: #2563EB;
+  --accent-purple: #7C3AED;
+  
+  /* Shadows & Radius */
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+  --radius-full: 9999px;
+  
+  --shadow-sm: 0 1px 3px rgba(15, 23, 42, 0.08);
+  --shadow-md: 0 4px 14px -2px rgba(15, 23, 42, 0.12);
+  --shadow-lg: 0 10px 25px -5px rgba(15, 23, 42, 0.18);
+  --shadow-sos: 0 0 35px rgba(220, 38, 38, 0.45);
+  
+  --font-sans: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+}
+
+[data-theme='dark'] {
+  --bg-primary: #0B0F19;
+  --bg-surface: #151C2C;
+  --bg-surface-elevated: #1E293B;
+  --bg-glass: rgba(21, 28, 44, 0.88);
+  --border-color: #334155;
+  
+  --text-main: #F8FAFC;
+  --text-muted: #94A3B8;
+  --text-subtle: #64748B;
+  
+  --emergency-red: #EF4444;
+  --emergency-red-bg: rgba(239, 68, 68, 0.12);
+  --emergency-red-border: rgba(239, 68, 68, 0.35);
+  
+  --alert-amber: #F59E0B;
+  --alert-amber-bg: rgba(245, 158, 11, 0.12);
+  --alert-amber-border: rgba(245, 158, 11, 0.35);
+  
+  --mesh-cyan: #38BDF8;
+  --mesh-cyan-bg: rgba(56, 189, 248, 0.12);
+  --mesh-cyan-border: rgba(56, 189, 248, 0.35);
+  
+  --sync-green: #22C55E;
+  --sync-green-bg: rgba(34, 197, 94, 0.12);
+  --sync-green-border: rgba(34, 197, 94, 0.35);
+
+  --accent-blue: #3B82F6;
+  --accent-purple: #A855F7;
+  
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 4px 14px rgba(0, 0, 0, 0.5);
+  --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.7);
+  --shadow-sos: 0 0 40px rgba(239, 68, 68, 0.55);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: var(--font-sans);
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  background-color: var(--bg-primary);
+  color: var(--text-main);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* Glassmorphism utilities */
+.glass-panel {
+  background: var(--bg-glass);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--border-color);
+  box-shadow: var(--shadow-md);
+  border-radius: var(--radius-md);
+}
+
+/* Animations */
+@keyframes pulseGlow {
+  0% { transform: scale(1); box-shadow: 0 0 20px rgba(239, 68, 68, 0.4); }
+  50% { transform: scale(1.04); box-shadow: 0 0 45px rgba(239, 68, 68, 0.7); }
+  100% { transform: scale(1); box-shadow: 0 0 20px rgba(239, 68, 68, 0.4); }
+}
+
+@keyframes radarWave {
+  0% { transform: scale(0.9); opacity: 0.8; }
+  100% { transform: scale(2.2); opacity: 0; }
+}
+
+@keyframes spinSlow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.pulse-sos {
+  animation: pulseGlow 2s infinite cubic-bezier(0.4, 0, 0.6, 1);
+}
+
+.radar-ring {
+  position: absolute;
+  border: 2px solid var(--mesh-cyan);
+  border-radius: 50%;
+  animation: radarWave 2.5s infinite linear;
+}
+
+/* Emergency Badges */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  border-radius: var(--radius-full);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+
+.badge-critical {
+  background: var(--emergency-red-bg);
+  color: var(--emergency-red);
+  border: 1px solid var(--emergency-red-border);
+}
+
+.badge-high {
+  background: var(--alert-amber-bg);
+  color: var(--alert-amber);
+  border: 1px solid var(--alert-amber-border);
+}
+
+.badge-mesh {
+  background: var(--mesh-cyan-bg);
+  color: var(--mesh-cyan);
+  border: 1px solid var(--mesh-cyan-border);
+}
+
+.badge-synced {
+  background: var(--sync-green-bg);
+  color: var(--sync-green);
+  border: 1px solid var(--sync-green-border);
+}
+
+.badge-local {
+  background: var(--bg-surface-elevated);
+  color: var(--text-muted);
+  border: 1px solid var(--border-color);
+}
+
+/* Touch targets */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 48px;
+  padding: 0 20px;
+  border-radius: var(--radius-md);
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  transition: all 0.2s ease;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, var(--accent-blue), #1D4ED8);
+  color: #FFFFFF;
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+}
+
+.btn-primary:active {
+  transform: scale(0.98);
+}
+
+.btn-danger {
+  background: linear-gradient(135deg, var(--emergency-red), #B91C1C);
+  color: #FFFFFF;
+  box-shadow: var(--shadow-sos);
+}
+
+.btn-outline {
+  background: transparent;
+  color: var(--text-main);
+  border: 1px solid var(--border-color);
+}
+
+.btn-outline:hover {
+  background: var(--bg-surface-elevated);
+}
+
+/* Custom Input Controls */
+.input-field {
+  width: 100%;
+  min-height: 48px;
+  padding: 10px 14px;
+  border-radius: var(--radius-sm);
+  background: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  color: var(--text-main);
+  font-size: 0.95rem;
+  outline: none;
+  transition: border-color 0.2s ease;
+}
+
+.input-field:focus {
+  border-color: var(--accent-blue);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+}
+
+textarea.input-field {
+  min-height: 100px;
+  resize: vertical;
+}
+
+/* Custom Scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg-primary);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--border-color);
+  border-radius: var(--radius-full);
+}
